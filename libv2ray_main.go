@@ -166,7 +166,7 @@ func (v *V2RayPoint) pointloop() error {
 	return nil
 }
 
-func (v *V2RayPoint) MeasureDelay() (int64, error) {
+func (v *V2RayPoint) MeasureDelay(url string) (int64, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 12*time.Second)
 
 	go func() {
@@ -178,7 +178,7 @@ func (v *V2RayPoint) MeasureDelay() (int64, error) {
 		}
 	}()
 
-	return measureInstDelay(ctx, v.Vpoint)
+	return measureInstDelay(ctx, v.Vpoint, url)
 }
 
 // InitV2Env set v2 asset path
@@ -202,6 +202,7 @@ func InitV2Env(envPath string, key string) {
 	}
 }
 
+<<<<<<< HEAD
 // Delegate Funcation
 func TestConfig(ConfigureFileContent string) error {
 	_, err := v2serial.LoadJSONConfig(strings.NewReader(ConfigureFileContent))
@@ -209,6 +210,9 @@ func TestConfig(ConfigureFileContent string) error {
 }
 
 func MeasureOutboundDelay(ConfigureFileContent string) (int64, error) {
+=======
+func MeasureOutboundDelay(ConfigureFileContent string, url string) (int64, error) {
+>>>>>>> cdcd6e1d56b76b0750bb8f7bf7e5336abf078f83
 	config, err := v2serial.LoadJSONConfig(strings.NewReader(ConfigureFileContent))
 	if err != nil {
 		return -1, err
@@ -226,7 +230,7 @@ func MeasureOutboundDelay(ConfigureFileContent string) (int64, error) {
 	}
 
 	inst.Start()
-	delay, err := measureInstDelay(context.Background(), inst)
+	delay, err := measureInstDelay(context.Background(), inst, url)
 	inst.Close()
 	return delay, err
 }
@@ -254,11 +258,15 @@ CheckVersionX string
 This func will return libv2ray binding version and V2Ray version used.
 */
 func CheckVersionX() string {
+<<<<<<< HEAD
 	var version = 26
+=======
+	var version = 27
+>>>>>>> cdcd6e1d56b76b0750bb8f7bf7e5336abf078f83
 	return fmt.Sprintf("Lib v%d, Xray-core v%s", version, v2core.Version())
 }
 
-func measureInstDelay(ctx context.Context, inst *v2core.Instance) (int64, error) {
+func measureInstDelay(ctx context.Context, inst *v2core.Instance, url string) (int64, error) {
 	if inst == nil {
 		return -1, errors.New("core instance nil")
 	}
@@ -280,14 +288,18 @@ func measureInstDelay(ctx context.Context, inst *v2core.Instance) (int64, error)
 		Timeout:   12 * time.Second,
 	}
 
-	req, _ := http.NewRequestWithContext(ctx, "GET", "https://www.google.com/generate_204", nil)
+	if len(url) <= 0 {
+		url = "https://www.google.com/generate_204"
+	}
+	req, _ := http.NewRequestWithContext(ctx, "GET", url, nil)
 	start := time.Now()
 	resp, err := c.Do(req)
 	if err != nil {
 		return -1, err
 	}
-	if resp.StatusCode != http.StatusNoContent {
-		return -1, fmt.Errorf("status != 204: %s", resp.Status)
+
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNoContent {
+		return -1, fmt.Errorf("status != 20x: %s", resp.Status)
 	}
 	resp.Body.Close()
 	return time.Since(start).Milliseconds(), nil
