@@ -202,17 +202,8 @@ func InitV2Env(envPath string, key string) {
 	}
 }
 
-<<<<<<< HEAD
-// Delegate Funcation
-func TestConfig(ConfigureFileContent string) error {
-	_, err := v2serial.LoadJSONConfig(strings.NewReader(ConfigureFileContent))
-	return err
-}
 
-func MeasureOutboundDelay(ConfigureFileContent string) (int64, error) {
-=======
 func MeasureOutboundDelay(ConfigureFileContent string, url string) (int64, error) {
->>>>>>> cdcd6e1d56b76b0750bb8f7bf7e5336abf078f83
 	config, err := v2serial.LoadJSONConfig(strings.NewReader(ConfigureFileContent))
 	if err != nil {
 		return -1, err
@@ -258,11 +249,7 @@ CheckVersionX string
 This func will return libv2ray binding version and V2Ray version used.
 */
 func CheckVersionX() string {
-<<<<<<< HEAD
-	var version = 26
-=======
 	var version = 27
->>>>>>> cdcd6e1d56b76b0750bb8f7bf7e5336abf078f83
 	return fmt.Sprintf("Lib v%d, Xray-core v%s", version, v2core.Version())
 }
 
