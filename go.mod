@@ -54,4 +54,4 @@ require (
 	lukechampine.com/blake3 v1.3.0 // indirect
 )
 
-replace github.com/GFW-knocker/Xray-core => github.com/siq0o/Xray-core v0.0.0-20240720144703-d28cb0a98e2f
+replace github.com/GFW-knocker/Xray-core => github.com/siq0o/Xray-core v0.0.0-20240722161416-cf06bca5c3ba
