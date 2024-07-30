@@ -36,6 +36,7 @@ require (
 	github.com/vishvananda/netlink v1.2.1-beta.2.0.20230316163032-ced5aaba43e3 // indirect
 	github.com/vishvananda/netns v0.0.4 // indirect
 	github.com/xtls/reality v0.0.0-20240712055506-48f0b2d5ed6d // indirect
+	github.com/xtls/xray-core v1.8.23 // indirect
 	go.uber.org/mock v0.4.0 // indirect
 	go4.org/netipx v0.0.0-20231129151722-fdeea329fbba // indirect
 	golang.org/x/crypto v0.25.0 // indirect
@@ -54,4 +55,4 @@ require (
 	lukechampine.com/blake3 v1.3.0 // indirect
 )
 
-replace github.com/GFW-knocker/Xray-core => github.com/siq0o/Xray-core v0.0.0-20240722161416-cf06bca5c3ba
+replace github.com/GFW-knocker/Xray-core => github.com/siq0o/Xray-core v0.0.0-20240730182724-4990f7c60d38
